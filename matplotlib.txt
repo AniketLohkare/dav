@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data_BM = pd.read_csv(r'C:\Users\HP\Downloads\archive.zip')
+data_BM = data_BM.dropna(how="any")
+data_BM.head()
+
+# Scatter Plot
+plt.xlabel('Item_Weight')
+plt.ylabel('Item_Visibility')
+plt.scatter(data_BM['Item_Weight'][:200],data_BM['Item_Visibility'][:200])
+
+# Box Plot
+data=data_BM[['Item_Outlet_Sales']]
+red_diamond=dict(markerfacecolor='r',marker='D')
+plt.title('Item Sales Distribution')
+plt.boxplot(data.values,labels=['Item Sales'],flierprops=red_diamond);
+
+data=data_BM[['Item_Weight','Item_MRP']]
+red_diamond=dict(markerfacecolor='r',marker='D')
+fib,ax=plt.subplots()
+plt.boxplot(data.values,labels=['Item_weight','Item_MRP']);
+
+# Violin Plot
+data=data_BM[['Item_Weight','Item_MRP']]
+fig,ax=plt.subplots()
+plt.xticks(ticks=[1,2],labels=['Item_Weight','Item_MRP'])
+plt.violinplot(data.values)
+
+# Bubble Plot
+plt.xlabel('Item_MRP')
+plt.ylabel('Item_Outlet_Sales')
+plt.title('Item Outlet Sales vs Item MRP(Prices)')
+plt.scatter(data_BM['Item_MRP'][:100],data_BM['Item_Outlet_Sales'][:100],data_BM['Item_Visibility'][:100])
